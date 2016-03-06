@@ -6,51 +6,50 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.Transformation;
 
 /**
  * Created by LiaoXingyu on 3/6/16.
  */
 public class FibonacciProgressBar extends View {
-	public static final int MAX_LENGTH = 48;
-	public static final int MIN_LENGTH = 24;
+	public static final int MAX_LENGTH = 480;
+	public static final int MIN_LENGTH = 240;
 	private static final long DEFAULT_DURATION = 4000;
+	private static final String TAG = FibonacciProgressBar.class.getSimpleName();
+
 	private int maxWidth;
 	private int maxHeight;
 	private int minWidth;
 	private int minHeight;
 	private Drawable indeterminateDrawable;
-	private LinearInterpolator interpolator;
-	private Transformation transformation;
-	private AlphaAnimation animation;
-	private boolean animationRunning;
+	private boolean isAnimationRunning;
+	private long rotateDegree = 0;
 
 	public FibonacciProgressBar(Context context) {
 		super(context);
+		init(context);
 	}
 
 	public FibonacciProgressBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		init(context);
 	}
 
 	public FibonacciProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		init();
+		init(context);
+	}
+
+	private void init(Context context) {
+		maxWidth = MAX_LENGTH;
+		maxHeight = MAX_LENGTH;
+		minWidth = MIN_LENGTH;
+		minHeight = MIN_LENGTH;
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			indeterminateDrawable = getResources().getDrawable(R.drawable.progress, context.getTheme());
 		} else {
 			indeterminateDrawable = getResources().getDrawable(R.drawable.progress);
 		}
-	}
-
-	private void init() {
-		maxWidth = MAX_LENGTH;
-		maxHeight = MAX_LENGTH;
-		minWidth = MIN_LENGTH;
-		minHeight = MIN_LENGTH;
 	}
 
 	@Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -63,13 +62,17 @@ public class FibonacciProgressBar extends View {
 		}
 
 		setMeasuredDimension(resolveSizeAndState(w, widthMeasureSpec, 0), resolveSizeAndState(h, heightMeasureSpec, 0));
+		//drawable初始大小为0，设置它的大小
+		d.setBounds(0, 0, getWidth(), getHeight());
 	}
 
 	@Override protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		Drawable d = this.indeterminateDrawable;
-		if (d != null && animationRunning) {
-			animation.getTransformation(getDrawingTime(), transformation);
+		if (d != null && isAnimationRunning) {
+			//每次将画布旋转一部分，默认旋转点是0，0处，需要设置旋转中心为图像中心
+			canvas.rotate(DEFAULT_DURATION / 360 * rotateDegree, getWidth() / 2, getHeight() / 2);
+
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
 				postInvalidateOnAnimation();
 			} else {
@@ -77,7 +80,7 @@ public class FibonacciProgressBar extends View {
 			}
 			d.draw(canvas);
 		}
-		//canvas.restore();
+		rotateDegree++;
 	}
 
 	@Override public void setVisibility(int visibility) {
@@ -102,36 +105,14 @@ public class FibonacciProgressBar extends View {
 	}
 
 	private void stopAnimation() {
-		animationRunning = false;
+		isAnimationRunning = false;
 	}
 
 	void startAnimation() {
 		if (getVisibility() != VISIBLE) {
 			return;
 		}
-
-		if (interpolator == null) {
-			interpolator = new LinearInterpolator();
-		}
-
-		if (transformation == null) {
-			transformation = new Transformation();
-		} else {
-			transformation.clear();
-		}
-
-		if (animation == null) {
-			animation = new AlphaAnimation(0.0f, 1.0f);
-		} else {
-			animation.reset();
-		}
-
-		animation.setRepeatMode(Animation.RESTART);
-		animation.setRepeatCount(Animation.INFINITE);
-		animation.setDuration(DEFAULT_DURATION);
-		animation.setInterpolator(interpolator);
-		animation.setStartTime(Animation.START_ON_FIRST_FRAME);
-		animationRunning = true;
+		isAnimationRunning = true;
 		postInvalidate();
 	}
 }
