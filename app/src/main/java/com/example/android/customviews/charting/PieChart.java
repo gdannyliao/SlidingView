@@ -14,9 +14,6 @@
  */
 package com.example.android.customviews.charting;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -39,8 +36,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Scroller;
-
 import com.example.android.customviews.R;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Custom view that shows a pie chart and, optionally, a label.
@@ -162,7 +161,7 @@ public class PieChart extends ViewGroup {
 			//
 			// The R.styleable.PieChart_* constants represent the index for
 			// each custom attribute in the R.styleable.PieChart array.
-			mShowText = a.getBoolean(R.styleable.PieChart_showText, false);
+			mShowText = a.getBoolean(R.styleable.PieChart_showText1, false);
 			mTextY = a.getDimension(R.styleable.PieChart_labelY, 0.0f);
 			mTextWidth = a.getDimension(R.styleable.PieChart_labelWidth, 0.0f);
 			mTextHeight = a

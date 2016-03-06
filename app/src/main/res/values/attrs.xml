@@ -29,7 +29,7 @@
         <attr name="labelY" format="dimension" />
         <attr name="pieRotation" format="integer" />
         <attr name="pointerRadius" format="dimension" />
-        <attr name="showText" format="boolean" />
+        <attr name="showText1" format="boolean" />
     </declare-styleable>
 	<declare-styleable name="DrawerView">
 	    <attr name="open" format="boolean"/>
