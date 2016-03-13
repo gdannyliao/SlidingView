@@ -1,4 +1,4 @@
-package com.example.android.customviews.charting;
+package com.example.android.customviews.drawer;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -1,4 +1,4 @@
-package com.example.android.customviews;
+package com.example.android.customviews.progressbar;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import com.example.android.customviews.R;
 
 /**
  * Created by LiaoXingyu on 3/6/16.
