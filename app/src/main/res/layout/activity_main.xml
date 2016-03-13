@@ -23,6 +23,13 @@
 		android:layout_height="wrap_content"
 		android:text="progressbar"
 		android:onClick="onClick"
-		android:id="@+id/progressbar"
+		android:id="@+id/buttonProgressbar"
+		/>
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="relative layout"
+		android:id="@+id/buttonRelative"
+		android:onClick="onClick"
 		/>
 </LinearLayout>
