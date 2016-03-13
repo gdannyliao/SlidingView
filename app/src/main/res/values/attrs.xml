@@ -16,23 +16,48 @@
 
 <resources>
 
-    <declare-styleable name="PieChart">
-        <attr name="autoCenterPointerInSlice" format="boolean" />
-        <attr name="highlightStrength" format="float" />
-        <attr name="labelColor" format="color" />
-        <attr name="labelHeight" format="dimension" />
-        <attr name="labelPosition" format="enum">
-            <enum name="left" value="0" />
-            <enum name="right" value="1" />
-        </attr>
-        <attr name="labelWidth" format="dimension" />
-        <attr name="labelY" format="dimension" />
-        <attr name="pieRotation" format="integer" />
-        <attr name="pointerRadius" format="dimension" />
-        <attr name="showText1" format="boolean" />
-    </declare-styleable>
+	<declare-styleable name="PieChart">
+		<attr name="autoCenterPointerInSlice"
+			format="boolean"/>
+		<attr name="highlightStrength"
+			format="float"/>
+		<attr name="labelColor"
+			format="color"/>
+		<attr name="labelHeight"
+			format="dimension"/>
+		<attr name="labelPosition"
+			format="enum">
+			<enum name="left"
+				value="0"/>
+			<enum name="right"
+				value="1"/>
+		</attr>
+		<attr name="labelWidth"
+			format="dimension"/>
+		<attr name="labelY"
+			format="dimension"/>
+		<attr name="pieRotation"
+			format="integer"/>
+		<attr name="pointerRadius"
+			format="dimension"/>
+		<attr name="showText1"
+			format="boolean"/>
+	</declare-styleable>
 	<declare-styleable name="DrawerView">
-	    <attr name="open" format="boolean"/>
-	    <attr name="mainForegroundColor" format="integer"/>
+		<attr name="open"
+			format="boolean"/>
+		<attr name="mainForegroundColor"
+			format="integer"/>
+	</declare-styleable>
+	
+	<declare-styleable name="RelativeLayout">
+		<attr name="alignParentLeft"
+			format="boolean"/>
+		<attr name="alignParentTop"
+			format="boolean"/>
+		<attr name="alignLeft"
+			format="integer"/>
+		<attr name="alignTop"
+			format="integer"/>
 	</declare-styleable>
 </resources>

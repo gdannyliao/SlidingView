@@ -37,6 +37,8 @@
 		</activity>
 		<activity android:name=".drawer.DrawerViewActivity">
 		</activity>
+		<activity android:name=".layout.CustomRelativeLayoutActivity">
+		</activity>
 	</application>
 
 </manifest>
