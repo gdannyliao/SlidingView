@@ -33,8 +33,6 @@
 			android:theme="@style/AppTheme.NoActionBar"
 			>
 		</activity>
-		<activity android:name=".progressbar.ProgressbarActivity">
-		</activity>
 		<activity android:name=".drawer.DrawerViewActivity">
 		</activity>
 	</application>

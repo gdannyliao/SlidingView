@@ -18,11 +18,4 @@
 		android:id="@+id/buttonDrawerView"
 		android:onClick="onClick"
 		/>
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="progressbar"
-		android:onClick="onClick"
-		android:id="@+id/progressbar"
-		/>
 </LinearLayout>

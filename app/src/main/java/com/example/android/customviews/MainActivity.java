@@ -22,7 +22,6 @@ import android.view.View;
 
 import com.example.android.customviews.charting.PieActivity;
 import com.example.android.customviews.drawer.DrawerViewActivity;
-import com.example.android.customviews.progressbar.ProgressbarActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 	/**
@@ -41,9 +40,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 				break;
 			case R.id.buttonDrawerView:
 				intent = new Intent(MainActivity.this, DrawerViewActivity.class);
-				break;
-			case R.id.progressbar:
-				intent = new Intent(MainActivity.this, ProgressbarActivity.class);
 				break;
 		}
 		if (intent != null) startActivity(intent);
