@@ -1,9 +1,8 @@
 package com.example.android.customviews.drawer;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import com.example.android.customviews.R;
-import com.example.android.customviews.drawer.DrawerView;
 
 public class DrawerViewActivity extends AppCompatActivity {
 
@@ -11,7 +10,7 @@ public class DrawerViewActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_drawer_view);
 
-		DrawerView drawer = (DrawerView) findViewById(R.id.drawerView1);
+		DrawerView drawer = findViewById(R.id.drawerView1);
 		drawer.addItem("haha", null);
 		drawer.addItem("hi", null);
 	}
