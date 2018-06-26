@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	xmlns:custom="http://schemas.android.com/apk/res-auto"
-	android:paddingLeft="@dimen/activity_horizontal_margin"
-	android:paddingRight="@dimen/activity_horizontal_margin"
-	android:paddingTop="@dimen/activity_vertical_margin"
-	android:paddingBottom="@dimen/activity_vertical_margin"
-	tools:context=".drawer.DrawerViewActivity"
-	>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".drawer.DrawerViewActivity">
 
-	<com.example.android.customviews.drawer.DrawerView
-		android:id="@+id/drawerView1"
-		android:layout_width="match_parent"
-		android:layout_height="48dp"
-		custom:open="true" >
-	</com.example.android.customviews.drawer.DrawerView>
-</RelativeLayout>
+    <com.example.android.customviews.drawer.DrawerView
+        android:id="@+id/drawerView1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        custom:open="true" />
+
+    <com.ggdsn.slidingview.SlidingLayout
+        android:id="@+id/slidingView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:id="@+id/firstView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#2b934d"
+            android:text="我" />
+
+        <TextView
+            android:id="@+id/secondView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#991304"
+            android:text="与" />
+
+        <TextView
+            android:id="@+id/topView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#1194ff"
+            android:text="你" />
+    </com.ggdsn.slidingview.SlidingLayout>
+</LinearLayout>

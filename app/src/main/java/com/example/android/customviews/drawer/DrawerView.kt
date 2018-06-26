@@ -12,11 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Scroller
 import android.widget.Toast
-
 import com.example.android.customviews.R
+import java.util.*
 
-import java.util.ArrayList
-
+@Deprecated("用SlidingView")
 class DrawerView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
@@ -186,22 +185,22 @@ class DrawerView @JvmOverloads constructor(
             }
         }
 
-        private fun isInDragableDistance(currentScrollDistance: Float): Boolean =
+        private fun inDraggableDistance(currentScrollDistance: Float): Boolean =
                 -dragableDistance <= currentScrollDistance && currentScrollDistance <= 2 * dragableDistance
 
-        private fun isCloseToOpen(currentScrollDistance: Float): Boolean = currentScrollDistance > DEFAULT_CHILD_WIDTH
+        private fun isNearOpen(currentScrollDistance: Float): Boolean = currentScrollDistance > DEFAULT_CHILD_WIDTH
 
         override fun onTouchEvent(event: MotionEvent): Boolean {
-            val currentx: Float
-            val deltax: Float
-            val currentScrollDistance: Float
-            currentx = event.x
-            deltax = lastx - currentx
-            currentScrollDistance = scrollX + deltax
-            lastx = currentx
+            val x: Float
+            val deltaX: Float
+            val offset: Float
+            x = event.x
+            deltaX = lastx - x
+            offset = scrollX + deltaX
+            lastx = x
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    isTouchIn = isTouchIn(currentx)
+                    isTouchIn = isTouchIn(x)
                     if (isTouchIn) {
                         startx = event.x
                         lastx = startx
@@ -211,15 +210,15 @@ class DrawerView @JvmOverloads constructor(
                 }
                 MotionEvent.ACTION_MOVE -> {
                     //FIXME onClickListener被屏蔽
-                    Log.i(TAG, "delta x:" + deltax)
-                    if (isInDragableDistance(currentScrollDistance)) {
-                        scrollBy(deltax.toInt(), scrollY)
+                    Log.i(TAG, "delta x:" + deltaX)
+                    if (inDraggableDistance(offset)) {
+                        scrollBy(deltaX.toInt(), scrollY)
                     }
                     return true
                 }
 
                 MotionEvent.ACTION_UP -> {
-                    if (isCloseToOpen(currentScrollDistance)) {
+                    if (isNearOpen(offset)) {
                         scrollToOpenPosition()
                     } else {
                         scrollToClosePosition()
