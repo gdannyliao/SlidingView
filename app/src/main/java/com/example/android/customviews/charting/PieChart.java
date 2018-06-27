@@ -36,7 +36,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Scroller;
-import com.example.android.customviews.R;
+
+import com.ggdsn.slidingview.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,7 +139,7 @@ public class PieChart extends ViewGroup {
 	 * @param context
 	 * @param attrs
 	 *            An attribute set which can contain attributes from
-	 *            {@link com.example.android.customviews.R.styleable.PieChart}
+	 *            {@link R.styleable.PieChart}
 	 *            as well as attributes inherited from {@link android.view.View}
 	 *            .
 	 */

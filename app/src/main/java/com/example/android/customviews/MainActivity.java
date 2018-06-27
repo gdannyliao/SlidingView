@@ -22,6 +22,7 @@ import android.view.View;
 
 import com.example.android.customviews.charting.PieActivity;
 import com.example.android.customviews.drawer.DrawerViewActivity;
+import com.ggdsn.slidingview.R;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 	/**

@@ -2,6 +2,7 @@ package com.ggdsn.slidingview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewConfiguration
@@ -16,6 +17,8 @@ interface SlidingView {
      * SlidingView可以打开的距离。-1表示可以完整打开
      */
     var openWidth: Int
+
+    fun isOpen(): Boolean
 }
 
 class SlidingLayout @JvmOverloads constructor(
@@ -25,7 +28,6 @@ class SlidingLayout @JvmOverloads constructor(
     override var openWidth: Int = 360
 
     private val scroller = OverScroller(context)
-    private var isOpen = false
     private var lastX = 0f
     private var activePointerId = INVALID_POINTER_ID
     private var isDragging = false
@@ -35,6 +37,15 @@ class SlidingLayout @JvmOverloads constructor(
     init {
         val configuration = ViewConfiguration.get(context)
         touchSlop = configuration.scaledTouchSlop
+        if (attrs != null) {
+            var array: TypedArray? = null
+            try {
+                array = context.obtainStyledAttributes(attrs, R.styleable.SlidingLayout)
+                openWidth = array.getDimensionPixelSize(R.styleable.SlidingLayout_slidingLayoutOpenWidth, 360)
+            } finally {
+                array?.recycle()
+            }
+        }
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
@@ -133,21 +144,30 @@ class SlidingLayout @JvmOverloads constructor(
         return -1.2 * openWidth <= offset && offset < openWidth / 2
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val width = MeasureSpec.getSize(widthMeasureSpec)
-        val height = MeasureSpec.getSize(heightMeasureSpec)
-
-        setMeasuredDimension(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY))
+    override fun isOpen(): Boolean {
         val childCount = childCount
-        if (childCount == 0) return
+        return if (childCount != 0) {
+            val topView = getChildAt(childCount - 1)
+            topView.translationX.toInt() == openWidth
+        } else false
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val childCount = childCount
+        if (childCount == 0) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+            return
+        }
 
         val topView = getChildAt(childCount - 1)
-        //封面的view需要遮盖，所以希望是与容器等宽高的
-        topView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY))
-        val childWidth = openWidth / (childCount - 1)
+        measureChild(topView, widthMeasureSpec, heightMeasureSpec)
+        val height = topView.measuredHeight
         val heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+
+        //封面的view需要遮盖，所以希望是与容器等宽高的
+        setMeasuredDimension(widthMeasureSpec, heightSpec)
+
+        val childWidth = openWidth / (childCount - 1)
         val widthSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY)
         for (i in 0..childCount - 2) {
             getChildAt(i).measure(widthSpec, heightSpec)

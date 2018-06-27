@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.android.customviews.R;
+import com.ggdsn.slidingview.R;
 
 public class DrawerViewActivity extends AppCompatActivity {
 
