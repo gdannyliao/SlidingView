@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-	android:layout_height="match_parent">
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Pie"
-		android:id="@+id/buttonPie"
-		android:onClick="onClick"
-		/>
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="DrawerView"
-		android:id="@+id/buttonDrawerView"
-		android:onClick="onClick"
-		/>
+    <com.ggdsn.slidingview.SlidingLayout
+        android:id="@+id/slidingView"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <TextView
+            android:id="@+id/firstView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#7DE285"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="第一项"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/secondView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FF338B"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="第二项"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/topView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1194ff"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="封面"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </com.ggdsn.slidingview.SlidingLayout>
 </LinearLayout>

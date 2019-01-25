@@ -21,6 +21,10 @@ interface SlidingView {
     fun isOpen(): Boolean
 }
 
+/**
+ * 这是一个可以向左滑动以打开或关闭的布局，其最大打开距离取决于[openWidth]。可以向其中添加若干个view，其中最后一个view将被设置为封面。
+ * 每个child可以自行添加点击事件，此layout不会截断
+ */
 class SlidingLayout @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr), SlidingView {
@@ -35,6 +39,7 @@ class SlidingLayout @JvmOverloads constructor(
     private val openSlop = 100
 
     init {
+        // TODO: 1/25/2019 封面设置宽度为wrap content和match parent时，文字的位置不一样
         val configuration = ViewConfiguration.get(context)
         touchSlop = configuration.scaledTouchSlop
         if (attrs != null) {
@@ -53,9 +58,15 @@ class SlidingLayout @JvmOverloads constructor(
         if (action == MotionEvent.ACTION_MOVE && isDragging) return true
 
         when (action and MotionEvent.ACTION_MASK) {
-            MotionEvent.ACTION_DOWN -> {
+            MotionEvent.ACTION_DOWN -> down@ {
+                isDragging = !scroller.isFinished
+                //回滚完成了，视为不在拖动中，否则应该视为在拖动中
+                if (isDragging) {
+                    scroller.abortAnimation()
+                }
+                //ACTION_DOWN的指针下标一定是0
                 activePointerId = ev.getPointerId(0)
-                lastX = ev.getX(activePointerId)
+                lastX = ev.x
             }
             MotionEvent.ACTION_MOVE -> move@ {
                 val pointerId = activePointerId
@@ -69,11 +80,11 @@ class SlidingLayout @JvmOverloads constructor(
 
                     //告诉底层的view不要阻止这个消息
                     parent?.requestDisallowInterceptTouchEvent(true)
-                    return true
+                    return@move
                 }
             }
         }
-        return super.onInterceptTouchEvent(ev)
+        return if (isDragging) true else super.onInterceptTouchEvent(ev)
     }
 
     @SuppressLint("ClickableViewAccessibility")

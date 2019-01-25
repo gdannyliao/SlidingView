@@ -16,34 +16,42 @@
 package com.example.android.customviews;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-import com.example.android.customviews.charting.PieActivity;
-import com.example.android.customviews.drawer.DrawerViewActivity;
 import com.ggdsn.slidingview.R;
 
 public class MainActivity extends Activity implements View.OnClickListener {
-	/**
-	 * Called when the activity is first created.
-	 */
-	@Override public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-	}
+    /**
+     * Called when the activity is first created.
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
 
-	@Override public void onClick(View v) {
-		Intent intent = null;
-		switch (v.getId()) {
-			case R.id.buttonPie:
-				intent = new Intent(MainActivity.this, PieActivity.class);
-				break;
-			case R.id.buttonDrawerView:
-				intent = new Intent(MainActivity.this, DrawerViewActivity.class);
-				break;
-		}
-		if (intent != null) startActivity(intent);
-	}
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.topView:
+                toast("点击封面");
+                break;
+            case R.id.firstView:
+                toast("点击第一项");
+                break;
+            case R.id.secondView:
+                toast("点击第二项");
+                break;
+            default:
+                toast("点击其他");
+                break;
+        }
+    }
+
+    private void toast(String hint) {
+        Toast.makeText(this, hint, Toast.LENGTH_SHORT).show();
+    }
 }
 

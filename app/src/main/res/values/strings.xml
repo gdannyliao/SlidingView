@@ -15,7 +15,5 @@
 -->
 
 <resources>
-     <string name="app_name">CustomViews</string>
-     <string name="reset_button">Reset</string>
-	<string name="title_activity_pie">PieActivity</string>
+     <string name="app_name">SlidingView</string>
 </resources>
